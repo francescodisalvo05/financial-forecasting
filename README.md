@@ -1,1 +1,2 @@
-# financial-forecasting
+# Financial_Forecasting
+Stock Price predictions
