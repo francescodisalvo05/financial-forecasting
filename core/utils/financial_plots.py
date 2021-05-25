@@ -7,6 +7,8 @@ import plotly.express as px
 
 import streamlit as st
 
+from statsmodels.tsa.stattools import pacf, acf
+
 def plot_historical_price(ticker,company_name, close):
     """
     :param ticker: (str) ticker of the company
@@ -68,5 +70,56 @@ def plot_return_hist(ticker, company_name, close):
     fig = ff.create_distplot([return_values], group_labels, bin_size=bin_size)
 
     fig.update_layout(title="RETURN DISTRIBUTION")
+
+    return fig
+
+
+def plot_pacf(series=None, nlags=50):
+    """
+    :param series: (Series) time series of close prices or difference prices
+    :return:
+    """
+    df_pacf = pacf(series, nlags=nlags)
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=np.arange(len(df_pacf)),
+        y=df_pacf,
+        name='PACF',
+    ))
+
+    fig.update_xaxes(rangeslider_visible=True)
+    fig.update_layout(
+        title="Partial Autocorrelation",
+        xaxis_title="Lag",
+        yaxis_title="Partial Autocorrelation",
+        #     autosize=False,
+        #     width=500,
+        height=500,
+    )
+
+    return fig
+
+def plot_acf(series=None, nlags=50):
+    """
+    :param series: (Series) time series of close prices or difference prices
+    :return:
+    """
+    df_pacf = acf(series, nlags=nlags)
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=np.arange(len(df_pacf)),
+        y=df_pacf,
+        name='PACF',
+    ))
+
+    fig.update_xaxes(rangeslider_visible=True)
+    fig.update_layout(
+        title="Autocorrelation",
+        xaxis_title="Lag",
+        yaxis_title="Autocorrelation",
+        #     autosize=False,
+        #     width=500,
+        height=500,
+    )
 
     return fig
