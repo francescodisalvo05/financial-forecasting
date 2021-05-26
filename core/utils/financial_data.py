@@ -14,12 +14,12 @@ def get_data(ticker=None, start=None):
     """
     if not start:
         today = datetime.datetime.now()
-        start = today - datetime.timedelta(days=720)
+        start = today - datetime.timedelta(days=31)
 
     if not ticker:
         return  None
     else:
-        return yf.download(ticker, start=start)['Adj Close']
+        return yf.download(ticker, start=start, interval='1h')['Adj Close']
 
 def get_difference(close):
     """
