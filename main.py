@@ -3,6 +3,7 @@ import streamlit as st
 from core.utils.financial_plots import *
 from core.utils.financial_data import *
 from core.utils.statistical_tests import *
+from scripts.model.arima import make_prediction
 
 st.title('FORECASTING')
 
@@ -24,7 +25,10 @@ return_prices = get_difference(close_prices)
 st.dataframe(perform_adfuller_test(return_prices, 0.05))
 
 st.markdown("""<h3>Test PACF</h3>""",unsafe_allow_html=True)
-st.plotly_chart(plot_pacf(return_prices, nlags=100))
+st.plotly_chart(plot_pacf(return_prices))
 
 st.markdown("""<h3>Test ACF</h3>""",unsafe_allow_html=True)
-st.plotly_chart(plot_acf(return_prices, nlags=100))
+st.plotly_chart(plot_acf(return_prices))
+
+st.markdown("""<h3>Test Prediction</h3>""",unsafe_allow_html=True)
+st.plotly_chart(make_prediction(close_prices))
