@@ -79,7 +79,7 @@ def plot_pacf(series=None, nlags=50):
     :param series: (Series) time series of close prices or difference prices
     :return:
     """
-    df_pacf = pacf(series, nlags=nlags)
+    df_pacf = pacf(series)
     fig = go.Figure()
     fig.add_trace(go.Scatter(
         x=np.arange(len(df_pacf)),
@@ -99,12 +99,12 @@ def plot_pacf(series=None, nlags=50):
 
     return fig
 
-def plot_acf(series=None, nlags=50):
+def plot_acf(series=None, nlags=10):
     """
     :param series: (Series) time series of close prices or difference prices
     :return:
     """
-    df_pacf = acf(series, nlags=nlags)
+    df_pacf = acf(series)
     fig = go.Figure()
     fig.add_trace(go.Scatter(
         x=np.arange(len(df_pacf)),
